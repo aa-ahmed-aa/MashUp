@@ -1,4 +1,4 @@
-# MaghUp
+# MashUp
 this mashes up googleNews and googleMaps to easily find the news about the city on the map and it also can locate your current location on the map.
 
 #Install on linux
