@@ -1,0 +1,98 @@
+<!--
+
+index.html
+
+Computer Science 50
+Harvard University
+
+A mashup of Google Maps and Google News.
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <!-- http://getbootstrap.com/ -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
+        <!-- app's own CSS -->
+        <link href="/css/styles.css" rel="stylesheet"/>
+
+        <!-- https://developers.google.com/maps/documentation/javascript/ -->
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+        <!-- http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/ -->
+        <script src="/js/markerwithlabel_packed.js"></script>
+
+        <!-- http://jquery.com/ -->
+        <script src="/js/jquery-1.11.1.min.js"></script>
+
+        <!-- http://getbootstrap.com/ -->
+        <script src="/js/bootstrap.min.js"></script>
+        
+        <style>
+              html, body, #map-canvas {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+              }
+        </style>
+
+       <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>        
+
+
+       <script>
+               /**
+                *      determine the current location 
+                */
+                    var map;
+                    function initialize(position) {
+                        map = new google.maps.Map(document.getElementById('map-canvas'), {
+                            zoom: 13,
+                            disableDefaultUI: true,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            maxZoom: 14,
+                            panControl: true,
+                            zoomControl: true,
+                            center: {lat: position.coords.latitude, lng: position.coords.longitude}
+                        });
+                        
+                        var marker = new google.maps.Marker({
+                            position: {lat: position.coords.latitude, lng: position.coords.longitude},
+                            map: map,
+                            title: 'Your Current Location'
+                         });                    
+                    }
+
+
+                
+                function geolocation()
+                {
+                    if(typeof(navigator.geolocation) != 'undefined')
+                    {
+                        navigator.geolocation.getCurrentPosition(function(position)
+                        {
+                            google.maps.event.addDomListener(window, 'load', initialize(position));                               
+                        });
+                    }
+                    else
+                    {
+                        alert('your browser dos\'t support geolocation !');
+                    }
+                }
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+        </script> 
+        <title>Mashup</title>
+
+    </head>
+    <body onload="geolocation();">
+
+            <!-- http s://developers.google.com/maps/documentation/javascript/tutorial -->
+            <div id="map-canvas"></div>
+
+    </body>
+</html>
